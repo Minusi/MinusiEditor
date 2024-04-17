@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "GLFW/glfw3.h"
 
-
 namespace Editor
 {
 	Application::Application()
@@ -14,24 +13,19 @@ namespace Editor
 		}
 
 		glfwSetErrorCallback(Application::_HandleGlfwErrors);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		_MainWindow = glfwCreateWindow(640, 480, "Lineage Editor", nullptr, nullptr);
+
+		_CreateDefaultHint();
+		_MainWindow = std::unique_ptr<BaseWindow>(new BaseWindow(*_DefaultHint.get()));
 		if (_MainWindow == nullptr)
 		{
 			return;
 		}
 
-		auto window2 = glfwCreateWindow(640, 480, "Sub Window", nullptr, nullptr);
-		
-
-		glfwGetFramebufferSize(_MainWindow, &_WindowSize.first, &_WindowSize.second);
-		glfwMakeContextCurrent(_MainWindow);
+		glfwMakeContextCurrent(_MainWindow->GetGLFWwindow());
 	}
 
 	Application::~Application()
 	{
-		glfwDestroyWindow(_MainWindow);
 		glfwTerminate();
 	}
 
@@ -47,17 +41,28 @@ namespace Editor
 			return;
 		}
 
-		while (glfwWindowShouldClose(_MainWindow) == false)
+		while (glfwWindowShouldClose(_MainWindow->GetGLFWwindow()) == false)
 		{
-			glfwSwapBuffers(_MainWindow);
+			glfwSwapBuffers(_MainWindow->GetGLFWwindow());
 			glfwPollEvents();
 		}
 
-		glfwDestroyWindow(_MainWindow);
-		while (true)
-		{
-			
-		}
+		glfwDestroyWindow(_MainWindow->GetGLFWwindow());
 	}
 
-}
+	void Application::_CreateDefaultHint()
+	{
+		_DefaultHint.reset();
+		_DefaultHint = std::make_unique<WindowHint>();
+		if (_DefaultHint == nullptr)
+		{
+			return;
+		}
+		
+		_DefaultHint->Hints.insert({ glfw::WindowHintType::_GLFW_CONTEXT_VERSION_MAJOR, 3 });
+		_DefaultHint->Hints.insert({ glfw::WindowHintType::_GLFW_CONTEXT_VERSION_MINOR, 3 });
+		_DefaultHint->WindowSize = { 640, 480 };
+		_DefaultHint->WindowTitle = "Minusi Editor";
+	}
+
+} 

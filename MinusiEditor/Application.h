@@ -1,4 +1,5 @@
 #pragma once
+#include "BaseWindow.h"
 
 
 class GLFWwindow;
@@ -18,7 +19,10 @@ namespace Editor
 		void Run();
 
 	private:
-		std::pair<int, int>		_WindowSize{};
-		GLFWwindow*				_MainWindow{};
+		void _CreateDefaultHint();
+
+	private:
+		std::unique_ptr<WindowHint>			_DefaultHint{};
+		std::unique_ptr<BaseWindow>			_MainWindow{};
 	};
 }
