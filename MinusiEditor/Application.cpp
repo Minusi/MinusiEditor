@@ -1,11 +1,16 @@
 #include "precomp.h"
 #include "Application.h"
 #include "GLFW/glfw3.h"
+#include "imgui_impl_glfw.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/basic_file_sink.h"
 
 namespace Editor
 {
 	Application::Application()
 	{
+		_Logger = spdlog::create<spdlog::sinks::basic_file_sink_mt>("editor", "Logs/editor.txt");
+
 		auto result = glfwInit();
 		if (result == GLFW_FALSE)
 		{
@@ -21,6 +26,7 @@ namespace Editor
 			return;
 		}
 
+		glfwSetWindowAttrib(_MainWindow->GetGLFWwindow(), GLFW_ACCUM_ALPHA_BITS, GLFW_TRUE);
 		glfwMakeContextCurrent(_MainWindow->GetGLFWwindow());
 	}
 
@@ -31,7 +37,13 @@ namespace Editor
 
 	void Application::_HandleGlfwErrors(int error, const char* content)
 	{
-		std::cout << "[ERROR] glfw error occured: " << content << std::endl;
+		auto logger = spdlog::get("editor");
+		if (logger == nullptr)
+		{
+			return;
+		}
+
+		logger->error("glfw error occured: {}", content);
 	}
 
 	void Application::Run()

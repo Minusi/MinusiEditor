@@ -2,7 +2,7 @@
 #include "glfwType.h"
 
 
-class GLFWwindow;
+struct GLFWwindow;
 
 namespace Editor
 {

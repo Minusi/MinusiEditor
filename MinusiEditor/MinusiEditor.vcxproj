@@ -85,6 +85,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;$(SolutionDir)Libraries\magic_enum\include;$(SolutionDir)Libraries\spdlog-2.x\include;$(SolutionDir)Libraries\spdlog-2.x\include\spdlog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -99,6 +102,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;$(SolutionDir)Libraries\magic_enum\include;$(SolutionDir)Libraries\spdlog-2.x\include;$(SolutionDir)Libraries\spdlog-2.x\include\spdlog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,7 +123,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>precomp.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;$(SolutionDir)Libraries\magic_enum\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;$(SolutionDir)Libraries\magic_enum\include;$(SolutionDir)Libraries\spdlog-2.x\include;$(SolutionDir)Libraries\spdlog-2.x\include\spdlog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,7 +144,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>precomp.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;$(SolutionDir)Libraries\magic_enum\include;$(SolutionDir)Libraries\spdlog-2.x\include;$(SolutionDir)Libraries\spdlog-2.x\include\spdlog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -2,7 +2,12 @@
 #include "BaseWindow.h"
 
 
-class GLFWwindow;
+struct GLFWwindow;
+
+namespace spdlog
+{
+	class logger;
+}
 
 namespace Editor
 {
@@ -19,10 +24,12 @@ namespace Editor
 		void Run();
 
 	private:
+		void _InitGlfw();
 		void _CreateDefaultHint();
 
 	private:
 		std::unique_ptr<WindowHint>			_DefaultHint{};
 		std::unique_ptr<BaseWindow>			_MainWindow{};
+		std::shared_ptr<spdlog::logger>		_Logger{};
 	};
 }
