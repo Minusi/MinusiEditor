@@ -24,7 +24,9 @@ namespace Editor
 		void Run();
 
 	private:
+		void _InitSpdlog();
 		void _InitGlfw();
+		void _InitImgui();
 		void _CreateDefaultHint();
 
 	private:

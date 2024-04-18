@@ -36,12 +36,8 @@ public:
     stopwatch()
         : start_tp_{clock::now()} {}
 
-    [[nodiscard]]
-    std::chrono::duration<double> elapsed() const { return std::chrono::duration<double>(clock::now() - start_tp_); }
-
-    [[nodiscard]]
-    std::chrono::milliseconds elapsed_ms() const {
-        return std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() - start_tp_);
+    std::chrono::duration<double> elapsed() const {
+        return std::chrono::duration<double>(clock::now() - start_tp_);
     }
 
     void reset() { start_tp_ = clock::now(); }

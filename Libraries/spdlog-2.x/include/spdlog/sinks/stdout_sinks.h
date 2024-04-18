@@ -5,10 +5,9 @@
 
 #include <cstdio>
 
-#include "../details/null_mutex.h"
 #include "../details/synchronous_factory.h"
-#include "./base_sink.h"
-#include "./sink.h"
+#include "base_sink.h"
+#include "sink.h"
 
 #ifdef _WIN32
     #include "../details/windows_include.h"
@@ -36,7 +35,7 @@ private:
     void flush_() override;
 #ifdef _WIN32
     HANDLE handle_;
-#endif  // _WIN32
+#endif  // WIN32
 };
 
 template <typename Mutex>

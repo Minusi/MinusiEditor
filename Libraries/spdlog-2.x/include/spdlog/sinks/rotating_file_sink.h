@@ -10,7 +10,7 @@
 #include "../details/file_helper.h"
 #include "../details/null_mutex.h"
 #include "../details/synchronous_factory.h"
-#include "./base_sink.h"
+#include "base_sink.h"
 
 namespace spdlog {
 namespace sinks {
@@ -68,8 +68,8 @@ inline std::shared_ptr<logger> rotating_logger_mt(const std::string &logger_name
                                                   size_t max_files,
                                                   bool rotate_on_open = false,
                                                   const file_event_handlers &event_handlers = {}) {
-    return Factory::template create<sinks::rotating_file_sink_mt>(logger_name, filename, max_file_size, max_files, rotate_on_open,
-                                                                  event_handlers);
+    return Factory::template create<sinks::rotating_file_sink_mt>(
+        logger_name, filename, max_file_size, max_files, rotate_on_open, event_handlers);
 }
 
 template <typename Factory = spdlog::synchronous_factory>
@@ -79,7 +79,7 @@ inline std::shared_ptr<logger> rotating_logger_st(const std::string &logger_name
                                                   size_t max_files,
                                                   bool rotate_on_open = false,
                                                   const file_event_handlers &event_handlers = {}) {
-    return Factory::template create<sinks::rotating_file_sink_st>(logger_name, filename, max_file_size, max_files, rotate_on_open,
-                                                                  event_handlers);
+    return Factory::template create<sinks::rotating_file_sink_st>(
+        logger_name, filename, max_file_size, max_files, rotate_on_open, event_handlers);
 }
 }  // namespace spdlog

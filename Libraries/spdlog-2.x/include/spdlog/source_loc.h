@@ -21,26 +21,33 @@ namespace spdlog {
 // std::experimental::source_location or empty
 struct source_loc {
     constexpr source_loc() = default;
-    constexpr source_loc(const char *filename_in, std::uint_least32_t line_in, const char *funcname_in)
+    constexpr source_loc(const char *filename_in,
+                         std::uint_least32_t line_in,
+                         const char *funcname_in)
         : filename{filename_in},
           short_filename{basename(filename_in)},
           line{line_in},
           funcname{funcname_in} {}
 
 #ifdef SPDLOG_HAVE_STD_SOURCE_LOCATION
-    static constexpr source_loc current(const std::source_location source_location = std::source_location::current()) {
-        return source_loc{source_location.file_name(), source_location.line(), source_location.function_name()};
+    static constexpr source_loc current(
+        const std::source_location source_location = std::source_location::current()) {
+        return source_loc{source_location.file_name(), source_location.line(),
+                          source_location.function_name()};
     }
 #elif defined(SPDLOG_HAVE_EXPERIMENTAL_SOURCE_LOCATION)
-    static constexpr source_loc current(
-        const std::experimental::source_location source_location = std::experimental::source_location::current()) {
-        return source_loc{source_location.file_name(), source_location.line(), source_location.function_name()};
+    static constexpr source_loc current(const std::experimental::source_location source_location =
+                                            std::experimental::source_location::current()) {
+        return source_loc{source_location.file_name(), source_location.line(),
+                          source_location.function_name()};
     }
 #else  // no source location support
     static constexpr source_loc current() { return source_loc{}; }
 #endif
 
-    [[nodiscard]] constexpr bool empty() const noexcept { return line == 0 || filename == nullptr || short_filename == nullptr; }
+    [[nodiscard]] constexpr bool empty() const noexcept {
+        return line == 0 || filename == nullptr || short_filename == nullptr;
+    }
 
     const char *filename{nullptr};
     const char *short_filename{nullptr};

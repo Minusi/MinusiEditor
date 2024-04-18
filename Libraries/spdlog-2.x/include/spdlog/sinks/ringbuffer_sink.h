@@ -11,7 +11,7 @@
 #include "../details/circular_q.h"
 #include "../details/log_msg_buffer.h"
 #include "../details/null_mutex.h"
-#include "./base_sink.h"
+#include "base_sink.h"
 
 namespace spdlog {
 namespace sinks {
@@ -47,7 +47,9 @@ public:
     }
 
 protected:
-    void sink_it_(const details::log_msg &msg) override { q_.push_back(details::log_msg_buffer{msg}); }
+    void sink_it_(const details::log_msg &msg) override {
+        q_.push_back(details::log_msg_buffer{msg});
+    }
     void flush_() override {}
 
 private:

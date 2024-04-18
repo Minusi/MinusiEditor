@@ -1,7 +1,11 @@
 #include "precomp.h"
 #include "Application.h"
 #include "GLFW/glfw3.h"
+
 #include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
+#include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
@@ -9,25 +13,9 @@ namespace Editor
 {
 	Application::Application()
 	{
-		_Logger = spdlog::create<spdlog::sinks::basic_file_sink_mt>("editor", "Logs/editor.txt");
-
-		auto result = glfwInit();
-		if (result == GLFW_FALSE)
-		{
-			return;
-		}
-
-		glfwSetErrorCallback(Application::_HandleGlfwErrors);
-
-		_CreateDefaultHint();
-		_MainWindow = std::unique_ptr<BaseWindow>(new BaseWindow(*_DefaultHint.get()));
-		if (_MainWindow == nullptr)
-		{
-			return;
-		}
-
-		glfwSetWindowAttrib(_MainWindow->GetGLFWwindow(), GLFW_ACCUM_ALPHA_BITS, GLFW_TRUE);
-		glfwMakeContextCurrent(_MainWindow->GetGLFWwindow());
+		_InitSpdlog();
+		_InitGlfw();
+		_InitImgui();
 	}
 
 	Application::~Application()
@@ -60,6 +48,56 @@ namespace Editor
 		}
 
 		glfwDestroyWindow(_MainWindow->GetGLFWwindow());
+	}
+
+	void Application::_InitSpdlog()
+	{
+		_Logger = spdlog::create<spdlog::sinks::basic_file_sink_mt>("editor", "../Logs/editor.txt");
+		_Logger->info("spdlog initialized");
+		_Logger->flush();
+	}
+
+	void Application::_InitGlfw()
+	{
+		auto result = glfwInit();
+		if (result == GLFW_FALSE)
+		{
+			_Logger->error("glfw init error");
+			return;
+		}
+
+		glfwSetErrorCallback(Application::_HandleGlfwErrors);
+
+		_CreateDefaultHint();
+		_MainWindow = std::unique_ptr<BaseWindow>(new BaseWindow(*_DefaultHint.get()));
+		if (_MainWindow == nullptr)
+		{
+			return;
+		}
+
+		glfwMakeContextCurrent(_MainWindow->GetGLFWwindow());
+	}
+
+	void Application::_InitImgui()
+	{
+		if (_MainWindow == nullptr)
+		{
+			return;
+		}
+
+		auto glfwWindow = _MainWindow->GetGLFWwindow();
+		if (glfwWindow == nullptr)
+		{
+			return;
+		}
+
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+		ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true);
+		ImGui_ImplOpenGL3_Init();
 	}
 
 	void Application::_CreateDefaultHint()
