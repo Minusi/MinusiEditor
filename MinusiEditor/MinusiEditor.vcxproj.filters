@@ -9,15 +9,21 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{02ce6633-7139-482f-8f34-10ae2172b0dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\json">
+      <UniqueIdentifier>{e83d6fa4-385d-4e7e-b634-7d8af298c001}</UniqueIdentifier>
+    </Filter>
     <Filter Include="헤더 파일\glfw">
       <UniqueIdentifier>{b94dfa8e-fd32-4811-942e-d4a4f4d2e40c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\json">
+      <UniqueIdentifier>{6dfbd803-9e3c-40aa-bffd-4af9222905a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>

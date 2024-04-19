@@ -62,7 +62,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>precomp.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;$(SolutionDir)Libraries\magic_enum\include;$(SolutionDir)Libraries\spdlog-2.x\include;$(SolutionDir)Libraries\spdlog-2.x\include\spdlog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;$(SolutionDir)Libraries\magic_enum\include;$(SolutionDir)Libraries\spdlog-2.x\include;$(SolutionDir)Libraries\spdlog-2.x\include\spdlog;$(SolutionDir)Libraries\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -83,7 +83,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>precomp.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;$(SolutionDir)Libraries\magic_enum\include;$(SolutionDir)Libraries\spdlog-2.x\include;$(SolutionDir)Libraries\spdlog-2.x\include\spdlog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\imgui;$(SolutionDir)Libraries\magic_enum\include;$(SolutionDir)Libraries\spdlog-2.x\include;$(SolutionDir)Libraries\spdlog-2.x\include\spdlog;$(SolutionDir)Libraries\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
