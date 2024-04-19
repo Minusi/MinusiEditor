@@ -27,7 +27,14 @@ namespace Editor
 		void _InitSpdlog();
 		void _InitGlfw();
 		void _InitImgui();
+
+		void _FinalizeGlfw();
+		void _FinalizeImgui();
+
 		void _CreateDefaultHint();
+
+	private:
+		void _Render();
 
 	private:
 		std::unique_ptr<WindowHint>			_DefaultHint{};

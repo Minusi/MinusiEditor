@@ -1,5 +1,8 @@
 #include "precomp.h"
 #include "Application.h"
+
+#include <Windows.h>
+#include "gl/GL.h"
 #include "GLFW/glfw3.h"
 
 #include "imgui_impl_glfw.h"
@@ -20,7 +23,8 @@ namespace Editor
 
 	Application::~Application()
 	{
-		glfwTerminate();
+		_FinalizeImgui();
+		_FinalizeGlfw();
 	}
 
 	void Application::_HandleGlfwErrors(int error, const char* content)
@@ -32,6 +36,7 @@ namespace Editor
 		}
 
 		logger->error("glfw error occured: {}", content);
+		logger->flush();
 	}
 
 	void Application::Run()
@@ -43,6 +48,17 @@ namespace Editor
 
 		while (glfwWindowShouldClose(_MainWindow->GetGLFWwindow()) == false)
 		{
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
+			ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+			ImGui::BeginMainMenuBar();
+			ImGui::EndMainMenuBar();
+			ImGui::Begin("hello, world!");
+			ImGui::Text("test text");
+			ImGui::End();
+
+			_Render();
 			glfwSwapBuffers(_MainWindow->GetGLFWwindow());
 			glfwPollEvents();
 		}
@@ -95,9 +111,27 @@ namespace Editor
 		ImGui::CreateContext();
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+		//io.ConfigViewportsNoAutoMerge = true;
+		//io.ConfigViewportsNoTaskBarIcon = true;
 
 		ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true);
 		ImGui_ImplOpenGL3_Init();
+	}
+
+	void Application::_FinalizeGlfw()
+	{
+		glfwTerminate();
+	}
+
+	void Application::_FinalizeImgui()
+	{
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
 	}
 
 	void Application::_CreateDefaultHint()
@@ -113,6 +147,25 @@ namespace Editor
 		_DefaultHint->Hints.insert({ glfw::WindowHintType::_GLFW_CONTEXT_VERSION_MINOR, 3 });
 		_DefaultHint->WindowSize = { 640, 480 };
 		_DefaultHint->WindowTitle = "Minusi Editor";
+	}
+
+	void Application::_Render()
+	{
+		ImGui::Render();
+		glClear(GL_COLOR_BUFFER_BIT);
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		// Update and Render additional Platform Windows
+		// (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
+		//  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
+		auto io = ImGui::GetIO();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 	}
 
 } 

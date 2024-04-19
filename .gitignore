@@ -70,3 +70,6 @@ ipch/
 *.vsp
 *.vspx
 *.sap
+
+## Dear ImGui artifacts
+imgui.ini
