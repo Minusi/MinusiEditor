@@ -11,6 +11,9 @@ namespace spdlog
 
 namespace Editor
 {
+	class LogManager;
+
+
 	class Application
 	{
 	public:
@@ -24,7 +27,7 @@ namespace Editor
 		void Run();
 
 	private:
-		void _InitSpdlog();
+		void _InitLog();
 		void _InitGlfw();
 		void _InitImgui();
 
@@ -39,6 +42,7 @@ namespace Editor
 	private:
 		std::unique_ptr<WindowHint>			_DefaultHint{};
 		std::unique_ptr<BaseWindow>			_MainWindow{};
-		std::shared_ptr<spdlog::logger>		_Logger{};
+		std::unique_ptr<LogManager>			_LogManager{};
+		spdlog::logger*						_EditorLogger{};
 	};
 }

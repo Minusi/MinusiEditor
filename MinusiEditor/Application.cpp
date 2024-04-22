@@ -1,22 +1,20 @@
 #include "precomp.h"
 #include "Application.h"
 
-#include <Windows.h>
-#include "gl/GL.h"
 #include "GLFW/glfw3.h"
-
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
+
+#include "LogManager.h"
 
 namespace Editor
 {
 	Application::Application()
 	{
-		_InitSpdlog();
+		_InitLog();
 		_InitGlfw();
 		_InitImgui();
 	}
@@ -29,7 +27,7 @@ namespace Editor
 
 	void Application::_HandleGlfwErrors(int error, const char* content)
 	{
-		auto logger = spdlog::get("editor");
+		auto logger = spdlog::get("EDITOR");
 		if (logger == nullptr)
 		{
 			return;
@@ -66,11 +64,21 @@ namespace Editor
 		glfwDestroyWindow(_MainWindow->GetGLFWwindow());
 	}
 
-	void Application::_InitSpdlog()
+	void Application::_InitLog()
 	{
-		_Logger = spdlog::create<spdlog::sinks::basic_file_sink_mt>("editor", "../Logs/editor.txt");
-		_Logger->info("spdlog initialized");
-		_Logger->flush();
+		_LogManager = std::unique_ptr<LogManager>(new LogManager());
+		if (_LogManager == nullptr)
+		{
+			assert(_LogManager);
+			return;
+		}
+
+		_EditorLogger = _LogManager->GetLogger(LogType::EDITOR);
+		if (_EditorLogger == nullptr)
+		{
+			assert(_EditorLogger);
+			return;
+		}
 	}
 
 	void Application::_InitGlfw()
@@ -78,7 +86,7 @@ namespace Editor
 		auto result = glfwInit();
 		if (result == GLFW_FALSE)
 		{
-			_Logger->error("glfw init error");
+			_EditorLogger->error("glfw init error");
 			return;
 		}
 
