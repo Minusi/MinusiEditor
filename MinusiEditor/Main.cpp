@@ -1,16 +1,26 @@
 #include "precomp.h"
 #include "Application.h"
+#include "LogManager.h"
 
 using namespace Editor;
+using namespace std;
+
+void Init()
+{
+	LogManager::CreateInstance();
+	Application::CreateInstance();
+}
+
+void Release()
+{
+	Application::DestroyInstance();
+	LogManager::DestroyInstance();
+}
 
 int main()
 {
-	std::unique_ptr<Application> window = std::make_unique<Application>();
-	if (window == nullptr)
-	{
-		return 1;
-	}
-
-	window->Run();
+	Init();
+	Application::Instance()->Run();
+	Release();
 	return 0;
 }

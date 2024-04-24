@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseWindow.h"
+#include "Singleton.h"
 
 
 struct GLFWwindow;
@@ -14,11 +15,13 @@ namespace Editor
 	class LogManager;
 
 
-	class Application
+	class Application : public Singleton<Application>
 	{
-	public:
-		Application();
-		~Application();
+		DECLARE_SINGLETON(Application)
+
+	protected:
+		void Initialize() override;
+		void Finalize() override;
 
 	private:
 		static void _HandleGlfwErrors(int error, const char* content);
@@ -42,7 +45,6 @@ namespace Editor
 	private:
 		std::unique_ptr<WindowHint>			_DefaultHint{};
 		std::unique_ptr<BaseWindow>			_MainWindow{};
-		std::unique_ptr<LogManager>			_LogManager{};
 		spdlog::logger*						_EditorLogger{};
 	};
 }

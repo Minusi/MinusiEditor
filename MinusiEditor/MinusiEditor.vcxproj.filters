@@ -63,6 +63,9 @@
     <ClCompile Include="LogManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -105,6 +108,9 @@
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="LogManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

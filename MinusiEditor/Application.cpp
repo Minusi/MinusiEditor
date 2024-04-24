@@ -12,14 +12,14 @@
 
 namespace Editor
 {
-	Application::Application()
+	void Application::Initialize()
 	{
 		_InitLog();
 		_InitGlfw();
 		_InitImgui();
 	}
 
-	Application::~Application()
+	void Application::Finalize()
 	{
 		_FinalizeImgui();
 		_FinalizeGlfw();
@@ -66,19 +66,7 @@ namespace Editor
 
 	void Application::_InitLog()
 	{
-		_LogManager = std::unique_ptr<LogManager>(new LogManager());
-		if (_LogManager == nullptr)
-		{
-			assert(_LogManager);
-			return;
-		}
-
-		_EditorLogger = _LogManager->GetLogger(LogType::EDITOR);
-		if (_EditorLogger == nullptr)
-		{
-			assert(_EditorLogger);
-			return;
-		}
+		_EditorLogger = LogManager::Instance()->GetLogger(LogType::EDITOR);
 	}
 
 	void Application::_InitGlfw()
